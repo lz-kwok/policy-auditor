@@ -1,0 +1,135 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Policy Audit Result",
+  "description": "企业制度审计结果JSON格式定义",
+  "type": "object",
+  "required": ["policy_id", "policy_name", "audit_date", "risks"],
+  "properties": {
+    "policy_id": {
+      "type": "string",
+      "description": "制度编号（从Excel读取或自动生成）"
+    },
+    "policy_name": {
+      "type": "string",
+      "description": "制度名称（原文件名称）"
+    },
+    "audit_date": {
+      "type": "string",
+      "format": "date",
+      "description": "审计日期，格式：YYYY-MM-DD"
+    },
+    "knowledge_domain": {
+      "type": "string",
+      "description": "知识域（从Excel读取）"
+    },
+    "category": {
+      "type": "string",
+      "description": "类别（从Excel读取）"
+    },
+    "department": {
+      "type": "string",
+      "description": "发文部门（从Excel读取）"
+    },
+    "scope": {
+      "type": "string",
+      "description": "适用范围/单位（从Excel读取）"
+    },
+    "hierarchy": {
+      "type": "string",
+      "description": "制度层级（从Excel读取）"
+    },
+    "effective_date": {
+      "type": "string",
+      "description": "生效日期（从Excel读取）"
+    },
+    "maturity_level": {
+      "type": "string",
+      "enum": ["L1", "L2", "L3", "L4", "L5"],
+      "description": "制度成熟度等级"
+    },
+    "maturity_reason": {
+      "type": "string",
+      "description": "成熟度评估理由"
+    },
+    "risks": {
+      "type": "object",
+      "description": "十大维度风险评分（0-3分）",
+      "properties": {
+        "合法性": { "type": "integer", "minimum": 0, "maximum": 3 },
+        "合规性": { "type": "integer", "minimum": 0, "maximum": 3 },
+        "完整性": { "type": "integer", "minimum": 0, "maximum": 3 },
+        "一致性": { "type": "integer", "minimum": 0, "maximum": 3 },
+        "可执行性": { "type": "integer", "minimum": 0, "maximum": 3 },
+        "风险性": { "type": "integer", "minimum": 0, "maximum": 3 },
+        "权责清晰": { "type": "integer", "minimum": 0, "maximum": 3 },
+        "审批合理": { "type": "integer", "minimum": 0, "maximum": 3 },
+        "数据合规": { "type": "integer", "minimum": 0, "maximum": 3 },
+        "AI合规": { "type": "integer", "minimum": 0, "maximum": 3 }
+      },
+      "required": ["合法性", "合规性", "完整性", "一致性", "可执行性", "风险性", "权责清晰", "审批合理", "数据合规", "AI合规"]
+    },
+    "risk_items": {
+      "type": "array",
+      "description": "具体风险项列表",
+      "items": {
+        "type": "object",
+        "required": ["id", "level", "dimension", "description"],
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "风险项编号，格式：R001, R002..."
+          },
+          "level": {
+            "type": "string",
+            "enum": ["P0", "P1", "P2", "P3"],
+            "description": "风险等级"
+          },
+          "dimension": {
+            "type": "string",
+            "description": "所属审计维度"
+          },
+          "impact": {
+            "type": "array",
+            "description": "影响维度",
+            "items": {
+              "type": "string",
+              "enum": ["法律", "财务", "运营", "品牌"]
+            }
+          },
+          "probability": {
+            "type": "string",
+            "enum": ["高", "中", "低"],
+            "description": "发生概率"
+          },
+          "clause": {
+            "type": "string",
+            "description": "涉及条款"
+          },
+          "description": {
+            "type": "string",
+            "description": "风险描述"
+          },
+          "suggestion": {
+            "type": "string",
+            "description": "整改建议"
+          }
+        }
+      }
+    },
+    "related_policies": {
+      "type": "array",
+      "description": "关联制度编号列表",
+      "items": { "type": "string" }
+    },
+    "conflict_policies": {
+      "type": "array",
+      "description": "冲突制度编号列表（从"前置制度是否冲突"字段读取）",
+      "items": { "type": "string" }
+    },
+    "replaces_policies": {
+      "type": "array",
+      "description": "替代的制度编号列表（从"替代的制度名称"字段读取）",
+      "items": { "type": "string" }
+    }
+  }
+}
