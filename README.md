@@ -1,119 +1,97 @@
 # 📋 企业制度与流程审计工具 (policy-auditor)
 
-![Version](https://img.shields.io/badge/version-1.0.0-blue)
+![Version](https://img.shields.io/badge/version-1.1.0-blue)
 ![License](https://img.shields.io/badge/license-MIT-green)
 ![Python](https://img.shields.io/badge/python-3.8+-blue.svg)
 
-`policy-auditor` 是一款用于对企业起草或修订的**管理制度、业务流程、管理办法、操作规程、问责条例、奖惩机制**等文本进行体系化审计的 Skill 与工具集。通过融合 7 大核心能力、10 大审核维度、风险评分模型、成熟度模型、制度关系图谱、数字化落地检查器及核心内控矩阵，帮助企业有效识别管理漏洞，并输出强执行力的整改与数字化落地方案。
+`policy-auditor` 是一款用于对企业起草或修订的**管理制度、业务流程、管理办法、操作规程、问责条例、奖惩机制**等文本进行体系化审计的 Skill 与工具集。
+
+在最新版本中，工具集引入了基于 **Progressive Disclosure（渐进式披露）** 原则的动态分流机制，支持根据制度文本的内容特征，自动分类并动态加载对应的**职能领域规则集**与**行业规范知识库**进行交叉合规审计，实现了极高的审计针对性与 Token 利用效率。
 
 ---
 
 ## 🚀 功能特性
 
-- **7 大核心能力**：法律合规检查、内部制度一致性检查、完整性检查、可执行性检查、风险提示、数字化落地建议、自动生成修订建议。
-- **10 大审计维度**：合法性、合规性、完整性、一致性、可执行性、风险性、权责清晰、审批合理、数据合规、AI合规。
-- **内控红线扫描**：强制扫描职责分离 (SoD)、授权矩阵 (LOA)、审批权限、资金控制、印章管理、合同管理、库存管理等七大内控红线。
-- **数字化落地检查**：针对 SAP/OA/多维表等系统，提供硬校验、表单刚性锁定、自动流控路由、多维数据看板等具体系统配置建议。
-- **风险量化与成熟度评估**：基于 P0-P3 的风险量化分级与 COBIT/CMMI 的 L1-L5 制度成熟度定位。
+- **双维度正交审计**：
+  - **职能维度**：支持采购与招标管理、人力资源合规（依据中国劳动合同法/劳动法/民法典/个保法深度优化）等流程审计，涵盖规章民主程序、招聘与试用期、专项培训服务期、不胜任解除、考勤加班工时上限、单方解除通知工会、反职场性骚扰、职责分离（SoD）、授权矩阵（LOA）及结算红线等。
+  - **行业维度**：支持生猪养殖与生物安全管理，涵盖《动物防疫法》、《畜牧法》等国家法律红线、三级防疫洗消、出栏休药期硬校验、活体资产周盘点等。
+- **核心大脑调度 (SKILL.md)**：包含通用评估模型与分流器，根据输入文本的关键字自动分流并使用 `view_file` 工具以绝对路径加载子规则。
+- **风险量化与成熟度评估**：基于 P0-P3 的风险量化分级模型，以及基于 COBIT/CMMI 的 L1-L5 制度成熟度评估。
 - **批量汇总与可视化**：支持将多个制度审计的 JSON 结果一键聚合，自动生成 Markdown 格式的**风险地图**以及直观的**风险热力图**。
-
----
-
-## 🛠️ 技术栈
-
-- **Skill 核心逻辑**：Markdown (由 `SKILL.md` 承载，符合 Agent 提示词规范)
-- **批量脚本**：Python 3
-- **可视化库**：Matplotlib (用于生成风险热力图)
-
----
-
-## ⚙️ 快速开始
-
-### 环境要求
-
-- Python 3.8 或更高版本
-- 操作系统：Windows / macOS / Linux
-
-### 安装依赖
-
-脚本的可视化组件依赖 `matplotlib`。在终端中运行以下命令安装所需依赖：
-
-```bash
-pip install matplotlib
-```
-
----
-
-## 📖 使用方法
-
-### 1. 单个制度审计 (作为 Agent Skill)
-
-当你在支持 AI Agent 工作的环境中使用本 Skill 时，Agent 会自动加载 [SKILL.md](file:///c:/Users/GXY/.trae-cn/skills/policy-auditor/SKILL.md) 规则：
-1. **启动审计**：向 Agent 投递待审计的制度草案文本。
-2. **审计过程**：Agent 将自动进行结构拆解、依赖图谱建模（使用 Mermaid）、内控扫描及风险量化。
-3. **输出报告**：Agent 会输出符合 [SKILL.md](file:///c:/Users/GXY/.trae-cn/skills/policy-auditor/SKILL.md) 中规定模板的《审计与合规评估报告》，包括条款修改对比（`diff` 格式）及数字化落地建议。
-
-### 2. 批量审计结果汇总与可视化 (Python 脚本)
-
-当你在对大量制度文件进行批量化自动审计，并输出了各文件的审计结果 JSON（格式见下方）时，可以使用 `batch_audit.py` 对结果进行可视化汇总。
-
-#### 运行脚本
-
-```bash
-python scripts/batch_audit.py --input-dir <存放JSON结果的目录> --out-dir <报告输出目录>
-```
-
-#### JSON 输入格式示例
-
-输入文件夹中的每个 JSON 文件（代表一个文件的审计得分）格式应包含 `filename` 和 `risks` 对象，例如 `audit_report_1.json`：
-
-```json
-{
-  "filename": "采购与招标管理制度.docx",
-  "risks": {
-    "合法性": 1,
-    "合规性": 2,
-    "完整性": 0,
-    "一致性": 1,
-    "可执行性": 3,
-    "风险性": 2,
-    "权责清晰": 3,
-    "审批合理": 2,
-    "数据合规": 0,
-    "AI合规": 0
-  }
-}
-```
-*注：风险评分为 0 至 3 之间的整数，数值越大表示该维度下的缺陷/漏洞风险越高（3 代表 P0 违法违规/极高风险）。*
-
-#### 产出物
-
-运行脚本后，将在 `--out-dir` 指定的目录中生成：
-1. **`risk_map.md`**：Markdown 格式的风险地图，以表格形式汇总各制度文件在 10 大维度上的具体得分，并带有 🔴 🟠 🟡 🟢 状态指示灯。
-2. **`risk_heatmap.png`**：PNG 图片格式的风险热力图，清晰直观地对比不同文件、不同维度下的内控风险分布。
 
 ---
 
 ## 📂 项目结构
 
-```
+```text
 policy-auditor/
-├── SKILL.md                 # Skill 核心能力定义、审计指南与输出报告模板
-├── README.md                # 本说明文档
-└── scripts/
-    └── batch_audit.py       # 批量审计 JSON 数据聚合与可视化脚本
+├── SKILL.md                         # 🧠 核心大脑：定义通用内控逻辑、评估模型、动态加载调度器及审计报告模板
+├── README.md                        # 本说明文档
+├── scripts/                         # 自动工具脚本
+│   └── batch_audit.py               # 批量审计 JSON 数据聚合与可视化脚本
+└── references/                      # 📚 动态加载的子规则库 (核心扩展点)
+    ├── rulesets/                    # 维度一：按职能领域分类的规则集 (Rulesets)
+    │   ├── hr.md                    # 人力资源合规（中国劳动法专项优化）：规章民主程序、招聘与试用期、专项培训服务期、不胜任解除、考勤加班工时、违纪处分工会通知、反职场性骚扰、个人信息隐私合规及长期激励审计
+    │   └── procurement.md           # 采购与招标：招投标额度门槛、职责分离、单一来源审查、拆单拦截
+    └── industries/                  # 维度二：按行业场景分类的知识库 (Industries)
+        └── swine_farming.md         # 生猪养殖：动物防疫法、三级洗消屏障、病死猪处理、休药期、RFID盘点
 ```
 
 ---
 
-## 📝 贡献指南
+## ⚙️ 动态加载与路由机制
 
-1. **修改审计规则**：如果您需要更新内控检查点或报告模板，请直接修改 [SKILL.md](file:///c:/Users/GXY/.trae-cn/skills/policy-auditor/SKILL.md)。
-2. **优化数据可视化**：若需要调整热力图颜色、字体或支持新的导出格式，请编辑 [scripts/batch_audit.py](file:///c:/Users/GXY/.trae-cn/skills/policy-auditor/scripts/batch_audit.py)。
+当您在 AI Agent 环境中激活本 Skill 并上传待审计制度时，Agent 会自动通读文本并按如下规则路由：
+
+### 1. 职能路由规则
+* **采购与招投标** (包含关键字：“采购、招标、招投标、供应商、询比价、定标”等)：
+  - **动态加载**：`[procurement.md](file:///c:/Users/GXY/.trae-cn/skills/policy-auditor/references/rulesets/procurement.md)`
+* **人力资源** (包含关键字：“考勤、绩效、薪酬、加班、录用、离职、劳动合同”等)：
+  - **动态加载**：`[hr.md](file:///c:/Users/GXY/.trae-cn/skills/policy-auditor/references/rulesets/hr.md)`
+
+### 2. 行业路由规则
+* **生猪养殖与生物安全** (包含关键字：“生猪、猪场、猪只、母猪、育肥、饲料、兽药、洗消、疫病、无害化”等)：
+  - **动态加载**：`[swine_farming.md](file:///c:/Users/GXY/.trae-cn/skills/policy-auditor/references/industries/swine_farming.md)`
 
 ---
 
-## 👤 作者
+## 📄 审计报告产出格式
+
+审计完成后，Agent 会生成符合模板要求的审计报告，并在前言中明示本次审计所加载的规则包，例如：
+```markdown
+# 📌 牧原养殖·猪场现场物资采购管理办法 审计与合规评估报告
+
+**评估人**：Claude (使用 policy-auditor 技能)  
+**评估日期**：2026年06月10日  
+**加载规则库**：
+- 核心底座：policy-auditor/SKILL.md
+- 职能规则集：rulesets/procurement.md
+- 行业知识库：industries/swine_farming.md
+**评估结论**：需局部修改后发布
+```
+
+---
+
+## 📖 批量结果可视化脚本使用
+
+在对大批量的制度文件进行自动分析并获得了各个制度的得分 JSON 结果后，可以使用 `batch_audit.py` 生成可视化的地图。
+
+### 环境要求与依赖安装
+```bash
+pip install matplotlib
+```
+
+### 运行脚本
+```bash
+python scripts/batch_audit.py --input-dir <存放JSON结果的目录> --out-dir <报告输出目录>
+```
+运行后会在输出目录下生成：
+1. **`risk_map.md`**：Markdown 表格格式的风险地图，直观展示每个制度在合法性、合规性、审批合理性等 10 个维度下的得分（🔴 🟠 🟡 🟢 标示）。
+2. **`risk_heatmap.png`**：直观的风险热力图，对比各制度的内控漏洞分布。
+
+---
+
+## 👤 作者与许可证
 
 - **Author**：郭良志
 - **License**：MIT License
