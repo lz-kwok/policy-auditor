@@ -47,15 +47,15 @@ policy-auditor/
 
 ### 1. 职能路由规则
 * **采购与招投标** (包含关键字：“采购、招标、招投标、供应商、询比价、定标”等)：
-  - **动态加载**：`[procurement.md](policy-auditor/references/rulesets/procurement.md)`
+  - **动态加载**：`[procurement.md](references/rulesets/procurement.md)`
 * **人力资源** (包含关键字：“考勤、绩效、薪酬、加班、录用、离职、劳动合同”等)：
-  - **动态加载**：`[hr.md](policy-auditor/references/rulesets/hr.md)`
+  - **动态加载**：`[hr.md](references/rulesets/hr.md)`
 * **数智化建设与运营** (包含关键字：“数智化、信息化、数字化、智能化、产品开发、系统运维、变更发布、主数据、IoT、物联网、AI、大模型、软件正版化”等)：
-  - **动态加载**：`[digitalization.md](policy-auditor/references/rulesets/digitalization.md)`
+  - **动态加载**：`[digitalization.md](references/rulesets/digitalization.md)`
 
 ### 2. 行业路由规则
 * **生猪养殖与生物安全** (包含关键字：“生猪、猪场、猪只、母猪、育肥、饲料、兽药、洗消、疫病、无害化”等)：
-  - **动态加载**：`[swine_farming.md](policy-auditor/references/industries/swine_farming.md)`
+  - **动态加载**：`[swine_farming.md](references/industries/swine_farming.md)`
 
 ---
 

@@ -82,13 +82,13 @@ graph TD
 在开始审计前，Agent 必须通读并分析待审计文本，识别其“职能领域”与“行业背景”，并加载关联的子规则库。本 Skill 包含以下子规则路径，Agent 应使用 `view_file` 工具以绝对路径进行加载：
 
 1. **职能领域规则包 (Rulesets)**:
-   - **采购与招标管理类**：文本包含“采购、招标、招投标、投标、供应商、询比价、定标、付款申请”等 -> **加载** `[procurement.md](policy-auditor/references/rulesets/procurement.md)`
-   - **人力资源管理类**：文本包含“考勤、绩效、薪酬、加班、工时、招聘、录用、离职、竞业、劳动合同”等 -> **加载** `[hr.md](policy-auditor/references/rulesets/hr.md)`
-   - **数智化建设与运营类**：文本包含“数智化、信息化、数字化、智能化、产品开发、系统运维、变更发布、主数据、IoT、物联网、AI、大模型、软件正版化”等 -> **加载** `[digitalization.md](policy-auditor/references/rulesets/digitalization.md)`
+   - **采购与招标管理类**：文本包含“采购、招标、招投标、投标、供应商、询比价、定标、付款申请”等 -> **加载** `[procurement.md](references/rulesets/procurement.md)`
+   - **人力资源管理类**：文本包含“考勤、绩效、薪酬、加班、工时、招聘、录用、离职、竞业、劳动合同”等 -> **加载** `[hr.md](references/rulesets/hr.md)`
+   - **数智化建设与运营类**：文本包含“数智化、信息化、数字化、智能化、产品开发、系统运维、变更发布、主数据、IoT、物联网、AI、大模型、软件正版化”等 -> **加载** `[digitalization.md](references/rulesets/digitalization.md)`
    - **其他职能类**：若无法匹配上述职能，则采用 `SKILL.md` 中通用的内控规则进行审计。
 
 2. **行业规范规则包 (Industries)**:
-   - **生猪养殖与生物安全类**：文本包含“生猪、猪场、猪只、母猪、育肥、饲料、兽药、洗消、疫病、无害化、生物安全”等 -> **加载** `[swine_farming.md](policy-auditor/references/industries/swine_farming.md)`
+   - **生猪养殖与生物安全类**：文本包含“生猪、猪场、猪只、母猪、育肥、饲料、兽药、洗消、疫病、无害化、生物安全”等 -> **加载** `[swine_farming.md](references/industries/swine_farming.md)`
    - **其他行业类**：若无法匹配特定行业，则不加载行业包，仅按通用合规与职能规则审计。
 
 ---
