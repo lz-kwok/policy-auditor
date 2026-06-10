@@ -1,6 +1,6 @@
 # 📋 企业制度与流程审计工具 (policy-auditor)
 
-![Version](https://img.shields.io/badge/version-1.1.0-blue)
+![Version](https://img.shields.io/badge/version-1.2.0-blue)
 ![License](https://img.shields.io/badge/license-MIT-green)
 ![Python](https://img.shields.io/badge/python-3.8+-blue.svg)
 
@@ -13,9 +13,10 @@
 ## 🚀 功能特性
 
 - **双维度正交审计**：
-  - **职能维度**：支持采购与招标管理、人力资源合规（依据中国劳动合同法/劳动法/民法典/个保法深度优化）等流程审计，涵盖规章民主程序、招聘与试用期、专项培训服务期、不胜任解除、考勤加班工时上限、单方解除通知工会、反职场性骚扰、职责分离（SoD）、授权矩阵（LOA）及结算红线等。
-  - **行业维度**：支持生猪养殖与生物安全管理，涵盖《动物防疫法》、《畜牧法》等国家法律红线、三级防疫洗消、出栏休药期硬校验、活体资产周盘点等。
+  - **职能维度**：包含人力资源合规（劳动法及个保法专项优化）、采购与招标管理、**数智化建设与运营**（涵盖ITGC审计、BI指标治理、AI/Agent分类分级、外包及SaaS控制、数字化价值管理及业务连续性灾备等）。
+  - **行业维度**：支持生猪养殖与生物安全管理，涵盖《动物防疫法》、《畜牧法》等国家法律红线、三级防疫洗消、出栏休药期硬校验、活体资产周盘点、现场养殖数据多源校验等。
 - **核心大脑调度 (SKILL.md)**：包含通用评估模型与分流器，根据输入文本的关键字自动分流并使用 `view_file` 工具以绝对路径加载子规则。
+- **数智化成熟度评估模型**：融合了涵盖 IT/安全、数据/资产、AI/Agent、BI/价值实现、SAP核心系统、IoT现场等六大维度的五级成熟度（L1 - L5）评估指标与 24 个月演进路线规划。
 - **风险量化与成熟度评估**：基于 P0-P3 的风险量化分级模型，以及基于 COBIT/CMMI 的 L1-L5 制度成熟度评估。
 - **批量汇总与可视化**：支持将多个制度审计的 JSON 结果一键聚合，自动生成 Markdown 格式的**风险地图**以及直观的**风险热力图**。
 
@@ -31,10 +32,11 @@ policy-auditor/
 │   └── batch_audit.py               # 批量审计 JSON 数据聚合与可视化脚本
 └── references/                      # 📚 动态加载的子规则库 (核心扩展点)
     ├── rulesets/                    # 维度一：按职能领域分类的规则集 (Rulesets)
-    │   ├── hr.md                    # 人力资源合规（中国劳动法专项优化）：规章民主程序、招聘与试用期、专项培训服务期、不胜任解除、考勤加班工时、违纪处分工会通知、反职场性骚扰、个人信息隐私合规及长期激励审计
-    │   └── procurement.md           # 采购与招标：招投标额度门槛、职责分离、单一来源审查、拆单拦截
+    │   ├── hr.md                    # 人力资源合规（中国劳动法专项优化）
+    │   ├── procurement.md           # 采购与招标：招投标额度门槛、职责分离、单一来源审查
+    │   └── digitalization.md        # 数智化与IT治理：ITGC内控、指标治理、AI与Agent分级、SaaS/外包控制、数字化价值审计、灾备与业务连续性
     └── industries/                  # 维度二：按行业场景分类的知识库 (Industries)
-        └── swine_farming.md         # 生猪养殖：动物防疫法、三级洗消屏障、病死猪处理、休药期、RFID盘点
+        └── swine_farming.md         # 生猪养殖：动物防疫法、三级洗消屏障、病死猪处理、休药期、RFID盘点、数据四方交叉核对
 ```
 
 ---
@@ -48,6 +50,8 @@ policy-auditor/
   - **动态加载**：`[procurement.md](file:///c:/Users/GXY/.trae-cn/skills/policy-auditor/references/rulesets/procurement.md)`
 * **人力资源** (包含关键字：“考勤、绩效、薪酬、加班、录用、离职、劳动合同”等)：
   - **动态加载**：`[hr.md](file:///c:/Users/GXY/.trae-cn/skills/policy-auditor/references/rulesets/hr.md)`
+* **数智化建设与运营** (包含关键字：“数智化、信息化、数字化、智能化、产品开发、系统运维、变更发布、主数据、IoT、物联网、AI、大模型、软件正版化”等)：
+  - **动态加载**：`[digitalization.md](file:///c:/Users/GXY/.trae-cn/skills/policy-auditor/references/rulesets/digitalization.md)`
 
 ### 2. 行业路由规则
 * **生猪养殖与生物安全** (包含关键字：“生猪、猪场、猪只、母猪、育肥、饲料、兽药、洗消、疫病、无害化”等)：

@@ -84,6 +84,7 @@ graph TD
 1. **职能领域规则包 (Rulesets)**:
    - **采购与招标管理类**：文本包含“采购、招标、招投标、投标、供应商、询比价、定标、付款申请”等 -> **加载** `[procurement.md](file:///c:/Users/GXY/.trae-cn/skills/policy-auditor/references/rulesets/procurement.md)`
    - **人力资源管理类**：文本包含“考勤、绩效、薪酬、加班、工时、招聘、录用、离职、竞业、劳动合同”等 -> **加载** `[hr.md](file:///c:/Users/GXY/.trae-cn/skills/policy-auditor/references/rulesets/hr.md)`
+   - **数智化建设与运营类**：文本包含“数智化、信息化、数字化、智能化、产品开发、系统运维、变更发布、主数据、IoT、物联网、AI、大模型、软件正版化”等 -> **加载** `[digitalization.md](file:///c:/Users/GXY/.trae-cn/skills/policy-auditor/references/rulesets/digitalization.md)`
    - **其他职能类**：若无法匹配上述职能，则采用 `SKILL.md` 中通用的内控规则进行审计。
 
 2. **行业规范规则包 (Industries)**:
