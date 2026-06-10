@@ -1,0 +1,35 @@
+{
+  "total": 0,
+  "policies": [
+    {
+      "index": "1",
+      "original_name": "示例制度名称",
+      "policy_id": null,
+      "hierarchy": "制度层级",
+      "knowledge_domain": "知识域",
+      "category": "类别",
+      "department": "发文部门",
+      "scope": "适用范围",
+      "scenario": "适用场景",
+      "confidential": "密级",
+      "effective_date": "YYYYMMDD",
+      "version": "版本号",
+      "obsolete_note": "废止/修订说明",
+      "has_conflict": "是/否",
+      "replaces": "替代的制度名称",
+      "keywords": "关键词1, 关键词2",
+      "summary": "制度摘要",
+      "attachments": "附件列表",
+      "security_check": "审核结果",
+      "submitter": "提交人"
+    }
+  ],
+  "encoding_rules": [
+    {
+      "category": "类别",
+      "prefix": "编码前缀",
+      "module_name": "模块名称",
+      "module_code": "模块代码"
+    }
+  ]
+}
