@@ -14,6 +14,7 @@
 
 - **双维度正交审计**：
   - **职能维度**：包含人力资源合规（劳动法及个保法专项优化）、采购与招标管理、**数智化建设与运营**（涵盖ITGC审计、BI指标治理、AI/Agent分类分级、外包及SaaS控制、数字化价值管理及业务连续性灾备等）。
+  - **工程建设与基建管理**（涵盖环评与防疫条件合格证前置、生物安全规划设计、“三区两通道”分流、施工单位防疫守则、隐蔽工程记录、设计变更与签证LOA控制、质保期与决算复核等）。
   - **行业维度**：支持生猪养殖与生物安全管理，涵盖《动物防疫法》、《畜牧法》等国家法律红线、三级防疫洗消、出栏休药期硬校验、活体资产周盘点、现场养殖数据多源校验等。
 - **核心大脑调度 (SKILL.md)**：包含通用评估模型与分流器，根据输入文本的关键字自动分流并使用 `view_file` 工具以绝对路径加载子规则。
 - **数智化成熟度评估模型**：融合了涵盖 IT/安全、数据/资产、AI/Agent、BI/价值实现、SAP核心系统、IoT现场等六大维度的五级成熟度（L1 - L5）评估指标与 24 个月演进路线规划。
@@ -29,12 +30,14 @@ policy-auditor/
 ├── SKILL.md                         # 🧠 核心大脑：定义通用内控逻辑、评估模型、动态加载调度器及审计报告模板
 ├── README.md                        # 本说明文档
 ├── scripts/                         # 自动工具脚本
+│   ├── read_document.py             # 待审计文档提取工具（支持 doc、docx、pdf、xls、xlsx）
 │   └── batch_audit.py               # 批量审计 JSON 数据聚合与可视化脚本
 └── references/                      # 📚 动态加载的子规则库 (核心扩展点)
     ├── rulesets/                    # 维度一：按职能领域分类的规则集 (Rulesets)
     │   ├── hr.md                    # 人力资源合规（中国劳动法专项优化）
     │   ├── procurement.md           # 采购与招标：招投标额度门槛、职责分离、单一来源审查
-    │   └── digitalization.md        # 数智化与IT治理：ITGC内控、指标治理、AI与Agent分级、SaaS/外包控制、数字化价值审计、灾备与业务连续性
+    │   ├── digitalization.md        # 数智化与IT治理：ITGC内控、指标治理、AI与Agent分级、SaaS/外包控制、数字化价值审计、灾备与业务连续性
+    │   └── engineering.md           # 工程建设与基建管理：环评与防疫条件证前置、生物安全设计设计与通道规划、隐蔽工程、工程签证与LOA控制、工程结算复核与质保金扣减
     └── industries/                  # 维度二：按行业场景分类的知识库 (Industries)
         └── swine_farming.md         # 生猪养殖：动物防疫法、三级洗消屏障、病死猪处理、休药期、RFID盘点、数据四方交叉核对
 ```
@@ -52,6 +55,8 @@ policy-auditor/
   - **动态加载**：`[hr.md](references/rulesets/hr.md)`
 * **数智化建设与运营** (包含关键字：“数智化、信息化、数字化、智能化、产品开发、系统运维、变更发布、主数据、IoT、物联网、AI、大模型、软件正版化”等)：
   - **动态加载**：`[digitalization.md](references/rulesets/digitalization.md)`
+* **工程建设与基建管理** (包含关键字：“基建、工程建设、立项、设计变更、现场签证、隐蔽工程、竣工决算、承包商、造价审计、质保金”等)：
+  - **动态加载**：`[engineering.md](references/rulesets/engineering.md)`
 
 ### 2. 行业路由规则
 * **生猪养殖与生物安全** (包含关键字：“生猪、猪场、猪只、母猪、育肥、饲料、兽药、洗消、疫病、无害化”等)：
@@ -72,6 +77,31 @@ policy-auditor/
 - 职能规则集：rulesets/procurement.md
 - 行业知识库：industries/swine_farming.md
 **评估结论**：需局部修改后发布
+```
+
+---
+
+## 📖 待审计文档提取工具使用
+
+在审计多格式制度文档时，可运行 `read_document.py` 将 doc、docx、pdf、xls 和 xlsx 格式提取为纯文本，以便分析：
+
+### 环境要求与依赖安装
+* docx 格式提取依赖：`pip install python-docx`
+* doc 格式提取依赖（仅限 Windows，需安装 Office/WPS）：`pip install pywin32`
+* pdf 格式提取依赖（安装以下任意一种即可）：`pip install pypdf`（或 `pdfplumber` 或 `PyMuPDF`）
+* xlsx 格式提取依赖：`pip install openpyxl`
+* xls 格式提取依赖（安装以下任意一种即可）：`pip install xlrd`，或在 Windows 环境下配合已安装 Excel/WPS 使用 `pip install pywin32`
+
+### 运行脚本
+```bash
+# 提取并输出至终端
+python scripts/read_document.py --file path/to/document.docx
+
+# 提取并保存为文本文件
+python scripts/read_document.py --file path/to/document.pdf --output path/to/extracted.txt
+
+# 提取 Excel 电子表格内容并输出
+python scripts/read_document.py --file path/to/document.xlsx
 ```
 
 ---
